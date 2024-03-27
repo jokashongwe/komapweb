@@ -22,6 +22,7 @@ import {
   SingleFieldList,
   ChipField,
   SelectArrayInput,
+  SelectInput,
 } from "react-admin";
 import { useRecordContext } from "ra-core";
 import { useMediaQuery, Theme } from "@mui/material";
@@ -29,18 +30,15 @@ import { useParams, Link } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import ProvinceInput from "./components/ProvinceInput";
+import ProvinceInput from "../components/ProvinceInput";
 
 export const CreateBasket = () => (
   <Create>
     <SimpleForm>
       <TextInput source="name" label="Nom" />
-      <ProvinceInput
-        defaultChecked
-        source="province"
-        label="Province"
-        name="province"
-      />
+      <ReferenceInput label="Province" source="province" reference="provinces">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
       <div style={{ height: "0.4rem" }} />
       <TextInput source="ville" label="Ville" />
       <TextInput source="commune" label="Commune" />
@@ -57,12 +55,13 @@ export const EditBasket = (props: any) => {
       <SimpleForm>
         <TextInput disabled label="Id" source="id" />
         <TextInput source="name" label="Nom" />
-        <ProvinceInput
-          defaultChecked
-          source="province"
+        <ReferenceInput
           label="Province"
-          name="province"
-        />
+          source="province"
+          reference="provinces"
+        >
+          <SelectInput optionText="name" />
+        </ReferenceInput>
         <div style={{ height: "0.4rem" }} />
         <TextInput source="ville" label="Ville" />
         <TextInput source="commune" label="Commune" />

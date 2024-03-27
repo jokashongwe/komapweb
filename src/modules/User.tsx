@@ -23,6 +23,7 @@ import {
   ChipField,
   PasswordInput,
   SelectArrayInput,
+  SelectInput,
 } from "react-admin";
 import { useRecordContext } from "ra-core";
 import { useMediaQuery, Theme } from "@mui/material";
@@ -30,7 +31,7 @@ import { useParams, Link } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import ProvinceInput from "./components/ProvinceInput";
+import ProvinceInput from "../components/ProvinceInput";
 
 export const CreateUser = () => (
   <Create>
@@ -42,12 +43,9 @@ export const CreateUser = () => (
       <TextInput source="email" label="Email" />
       <TextInput source="phone" label="Téléphone" />
       <TextInput source="address" label="Adresse" />
-      <ProvinceInput
-        defaultChecked
-        source="province"
-        label="Province"
-        name="province"
-      />
+      <ReferenceInput label="Province" source="province" reference="provinces">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
       <div style={{ height: "0.4rem" }} />
       <TextInput source="ville" label="Ville" />
       <ReferenceArrayInput reference="roles" source="roles">
@@ -69,12 +67,13 @@ export const EditUser = (props: any) => {
         <TextInput source="email" label="Email" />
         <TextInput source="phone" label="Téléphone" />
         <TextInput source="address" label="Adresse" />
-        <ProvinceInput
-          defaultChecked
-          source="province"
+        <ReferenceInput
           label="Province"
-          name="province"
-        />
+          source="province"
+          reference="provinces"
+        >
+          <SelectInput optionText="name" />
+        </ReferenceInput>
         <div style={{ height: "0.4rem" }} />
         <TextInput source="ville" label="Ville" />
         <ReferenceArrayInput reference="roles" source="roles">
@@ -109,11 +108,13 @@ export const ListUser = () => {
                 <ChipField source="name" />
               </SingleFieldList>
             </ReferenceArrayField>
-            <TextField
-              source="province"
+            <ReferenceField
               label="Province"
-              defaultValue={"Kinshasa"}
-            />
+              source="province"
+              reference="provinces"
+            >
+              <TextField source="name" style={{ textTransform: "uppercase" }} />
+            </ReferenceField>
             <TextField source="ville" label="Ville" defaultValue={"Kinshasa"} />
             <DateField source="createdAt" label="Date de création" />
           </Datagrid>
@@ -137,7 +138,9 @@ export const ShowUser = () => (
           <ChipField source="name" />
         </SingleFieldList>
       </ReferenceArrayField>
-      <TextField source="province" label="Province" defaultValue={"Kinshasa"} />
+      <ReferenceField label="Province" source="province" reference="provinces">
+        <TextField source="name" style={{ textTransform: "uppercase" }} />
+      </ReferenceField>
       <TextField source="ville" label="Ville" defaultValue={"Kinshasa"} />
       <DateField source="createdAt" label="Date de création" />
     </SimpleShowLayout>

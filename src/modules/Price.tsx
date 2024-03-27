@@ -16,14 +16,15 @@ import {
   NumberInput,
   SimpleForm,
   ReferenceInput,
-  Edit
+  Edit,
+  SelectInput,
 } from "react-admin";
 import { useMediaQuery, Theme } from "@mui/material";
 import { useParams, Link } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
 import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import ProvinceInput from "./components/ProvinceInput";
+import ProvinceInput from "../components/ProvinceInput";
 
 export const PriceList = () => {
   const isSmall = useMediaQuery<Theme>((theme) => theme.breakpoints.down("sm"));
@@ -38,7 +39,12 @@ export const PriceList = () => {
       ) : (
         <>
           <Datagrid rowClick="show">
-            <ReferenceField link="show" label="Produits" source="product" reference="products">
+            <ReferenceField
+              link="show"
+              label="Produits"
+              source="product"
+              reference="products"
+            >
               <div style={{ display: "flex", flexDirection: "row" }}>
                 <TextField
                   source="name"
@@ -61,11 +67,13 @@ export const PriceList = () => {
             <TextField source="location_name" label="Lieu" />
             <TextField source="commune" label="Commune" defaultValue={"-"} />
             <TextField source="ville" label="Ville" defaultValue={"Kinshasa"} />
-            <TextField
-              source="province"
+            <ReferenceField
               label="Province"
-              defaultValue={"Kinshasa"}
-            />
+              source="province"
+              reference="provinces"
+            >
+              <TextField source="name" style={{ textTransform: "uppercase" }} />
+            </ReferenceField>
             <DateField source="createdAt" label="Date de création" />
           </Datagrid>
         </>
@@ -82,7 +90,9 @@ export const PriceShow = () => (
       <TextField source="location_name" />
       <TextField source="commune" />
       <TextField source="ville" />
-      <TextField source="province" />
+      <ReferenceField label="Province" source="province" reference="provinces">
+        <TextField source="name" style={{ textTransform: "uppercase" }} />
+      </ReferenceField>
       <ReferenceField link="show" source="product" reference="products" />
     </SimpleShowLayout>
   </Show>
@@ -123,7 +133,9 @@ export const PriceCreate = () => (
       <TextInput source="location_name" label="Lieu" />
       <TextInput source="commune" label="commune" />
       <TextInput source="ville" label="ville" />
-      <TextInput source="province" label="province" />
+      <ReferenceInput label="Province" source="province" reference="provinces">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
       <ReferenceInput source="product" reference="products" />
     </SimpleForm>
   </Create>
@@ -131,15 +143,19 @@ export const PriceCreate = () => (
 
 export const PriceEdit = () => (
   <Edit>
-      <SimpleForm>
-          <TextInput disabled label="Id" source="id" />
-          <NumberInput source="amount" label="Prix" />
-          <TextInput source="currency" label="Devise" />
-          <TextInput source="location_name" label="Lieu" />
-          <ProvinceInput defaultChecked source="province" label="Province" name="province" />
-          <div style={{height: "0.4rem"}} />
-          <TextInput source="ville" label="Ville" />
-          <TextInput source="commune" label="Commune" />
-      </SimpleForm>
+    <SimpleForm>
+      <TextInput disabled label="Id" source="id" />
+      <NumberInput source="amount" label="Prix" />
+      <TextInput source="currency" label="Devise" />
+      <TextInput source="location_name" label="Lieu" />
+      <ReferenceInput label="Province" source="province" reference="provinces">
+        <SelectInput optionText="name" />
+      </ReferenceInput>
+      <div style={{ height: "0.4rem" }} />
+      <TextInput source="ville" label="Ville" />
+      <TextInput source="commune" label="Commune" />
+    </SimpleForm>
   </Edit>
 );
+
+

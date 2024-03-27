@@ -11,18 +11,41 @@ import {
 } from "react-admin";
 import { Route } from "react-router-dom";
 import { dataProvider } from "./dataProvider";
-import { PostCreate, ProductEdit, ProductList, ProductShow } from "./Product";
 
 import PriceChangeIcon from "@mui/icons-material/PriceChange";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import UserIcon from "@mui/icons-material/Groups";
+import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
+import LocationCityIcon from "@mui/icons-material/LocationCity";
 
-import { NestedPriceList, PriceCreate, PriceEdit, PriceList, PriceShow } from "./Price";
 import Dashboard from "./Dashboard";
 import { i18nProvider } from "./i18nProvider";
-import { BasketList, CreateBasket, EditBasket, ShowBasket } from "./Basket";
-import UserIcon from "@mui/icons-material/Groups";
-import { CreateUser, EditUser, ListUser, ShowUser } from "./User";
+
+/**
+ * Installed Modules
+ */
+import { PriceCreate, PriceEdit, PriceList, PriceShow } from "./modules/Price";
+import {
+  PostCreate,
+  ProductEdit,
+  ProductList,
+  ProductShow,
+} from "./modules/Product";
+import {
+  BasketList,
+  CreateBasket,
+  EditBasket,
+  ShowBasket,
+} from "./modules/Basket";
+import { CreateUser, EditUser, ListUser, ShowUser } from "./modules/User";
+import {
+  ProvinceCreate,
+  ProvinceEdit,
+  ProvinceList,
+  ProvinceShow,
+} from "./modules/Province";
+import { CityCreate, CityEdit, CityList, CityShow } from "./modules/City";
 
 export const App = () => (
   <Admin
@@ -68,6 +91,25 @@ export const App = () => (
       show={ShowUser}
       edit={EditUser}
       create={CreateUser}
+    />
+    <Resource
+      icon={HolidayVillageIcon}
+      options={{ label: "Provinces" }}
+      name="provinces"
+      list={ProvinceList}
+      show={ProvinceShow}
+      edit={ProvinceEdit}
+      create={ProvinceCreate}
+    />
+
+    <Resource
+      icon={LocationCityIcon}
+      options={{ label: "Villes" }}
+      name="cities"
+      list={CityList}
+      show={CityShow}
+      edit={CityEdit}
+      create={CityCreate}
     />
   </Admin>
 );
