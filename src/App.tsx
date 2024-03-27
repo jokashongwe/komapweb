@@ -20,7 +20,9 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { NestedPriceList, PriceCreate, PriceEdit, PriceList, PriceShow } from "./Price";
 import Dashboard from "./Dashboard";
 import { i18nProvider } from "./i18nProvider";
-import { BasketList, CreateBasket } from "./Basket";
+import { BasketList, CreateBasket, EditBasket, ShowBasket } from "./Basket";
+import UserIcon from "@mui/icons-material/Groups";
+import { CreateUser, EditUser, ListUser, ShowUser } from "./User";
 
 export const App = () => (
   <Admin
@@ -54,9 +56,18 @@ export const App = () => (
       options={{ label: "Paniers" }}
       name="baskets"
       list={BasketList}
-      show={ShowGuesser}
-      edit={EditGuesser}
+      show={ShowBasket}
+      edit={EditBasket}
       create={CreateBasket}
+    />
+    <Resource
+      icon={UserIcon}
+      options={{ label: "Utilisateurs" }}
+      name="users"
+      list={ListUser}
+      show={ShowUser}
+      edit={EditUser}
+      create={CreateUser}
     />
   </Admin>
 );

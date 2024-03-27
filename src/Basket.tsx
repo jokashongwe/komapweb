@@ -9,7 +9,6 @@ import {
   DateField,
   SimpleList,
   ReferenceField,
-  useRecordContext,
   Create,
   TextInput,
   DateInput,
@@ -21,8 +20,10 @@ import {
   ReferenceArrayField,
   EditButton,
   SingleFieldList,
-  ChipField
+  ChipField,
+  SelectArrayInput,
 } from "react-admin";
+import { useRecordContext } from "ra-core";
 import { useMediaQuery, Theme } from "@mui/material";
 import { useParams, Link } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
@@ -44,14 +45,55 @@ export const CreateBasket = () => (
       <TextInput source="ville" label="Ville" />
       <TextInput source="commune" label="Commune" />
       <ReferenceArrayInput reference="products" source="products">
-        <Datagrid>
-          <TextField source="name" />
-          <DateField source="marque" />
-          <DateField source="model" />
-        </Datagrid>
+        <SelectArrayInput optionText="name" />
       </ReferenceArrayInput>
     </SimpleForm>
   </Create>
+);
+
+export const EditBasket = (props: any) => {
+  return (
+    <Edit {...props} title={"Paniers "}>
+      <SimpleForm>
+        <TextInput disabled label="Id" source="id" />
+        <TextInput source="name" label="Nom" />
+        <ProvinceInput
+          defaultChecked
+          source="province"
+          label="Province"
+          name="province"
+        />
+        <div style={{ height: "0.4rem" }} />
+        <TextInput source="ville" label="Ville" />
+        <TextInput source="commune" label="Commune" />
+        <ReferenceArrayInput reference="products" source="products">
+          <SelectArrayInput optionText="name" />
+        </ReferenceArrayInput>
+      </SimpleForm>
+    </Edit>
+  );
+};
+
+export const ShowBasket = () => (
+  <Show>
+    <SimpleShowLayout>
+      <TextField source="name" label="Titre" />
+      <ReferenceArrayField
+        label="Produits"
+        source="products"
+        reference="products"
+      >
+        <SingleFieldList>
+          <ChipField source="name" />
+        </SingleFieldList>
+      </ReferenceArrayField>
+      <NumberField source="amount" label="Prix Total" />
+      <TextField source="province" label="Province" defaultValue={"Kinshasa"} />
+      <TextField source="commune" label="Commune" defaultValue={"-"} />
+      <TextField source="ville" label="Ville" defaultValue={"Kinshasa"} />
+      <DateField source="createdAt" label="Date de création" />
+    </SimpleShowLayout>
+  </Show>
 );
 
 export const BasketList = () => {
@@ -104,7 +146,6 @@ export const BasketList = () => {
             />
             <TextField source="commune" label="Commune" defaultValue={"-"} />
             <TextField source="ville" label="Ville" defaultValue={"Kinshasa"} />
-
             <DateField source="createdAt" label="Date de création" />
           </Datagrid>
         </>
