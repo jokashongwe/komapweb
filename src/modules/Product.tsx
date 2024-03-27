@@ -70,6 +70,7 @@ export const ProductList = () => {
           />
           <TextField source="marque" style={listStyle.upper} />
           <TextField source="model" label="Modèle" style={listStyle.upper} />
+          <TextField source="conteneur" style={listStyle.upper} />
           <DateField source="createdAt" label="Date de création" />
         </Datagrid>
       )}
@@ -83,6 +84,7 @@ export const PostCreate = () => (
       <TextInput source="name" label="Nom du produit" />
       <TextInput source="marque" />
       <TextInput source="model" label="Modèle" />
+      <TextField source="marque" />
     </SimpleForm>
   </Create>
 );
@@ -184,6 +186,7 @@ export const ProductShow = () => {
         <TextField source="name" label="Nom du produit" />
         <TextField source="marque" />
         <TextField source="model" label="Modèle" />
+        <TextField source="conteneur" label="Modèle" />
         <ReferenceManyField
           label="Prix sur le marché"
           reference="prices"
@@ -257,6 +260,7 @@ export const ProductEdit = () => (
       <TextInput source="name" label="Nom du produit" />
       <TextInput source="marque" />
       <TextInput source="model" label="Modèle" />
+      <TextInput source="conteneur" />
     </SimpleForm>
   </Edit>
 );

@@ -98,32 +98,8 @@ export const PriceShow = () => (
   </Show>
 );
 
-export const NestedPriceList = () => {
-  const { id } = useParams();
-  return (
-    <List resource="prices" filter={{ product: id }}>
-      <Datagrid rowClick="edit">
-        <NumberField source="amount" />
-        <TextField source="currency" />
-        <TextField source="location_name" />
-        <EditPriceButton />
-      </Datagrid>
-    </List>
-  );
-};
-
-const EditPriceButton = () => {
-  const price = useRecordContext();
-  return (
-    <Button
-      component={Link}
-      to={`/products/${price?.product}/prices/${price?.id}`}
-      startIcon={<EditIcon />}
-    >
-      Edit
-    </Button>
-  );
-};
+const optionRenderer = (choice: any) =>
+  `${choice.conteneur} ${choice.name} ${choice.model ? choice.model : ""}`;
 
 export const PriceCreate = () => (
   <Create>
@@ -134,7 +110,7 @@ export const PriceCreate = () => (
       <TextInput source="commune" label="commune" />
       <TextInput source="ville" label="ville" />
       <ReferenceInput label="Province" source="province" reference="provinces">
-        <SelectInput optionText="name" />
+        <SelectInput optionText={optionRenderer} />
       </ReferenceInput>
       <ReferenceInput source="product" reference="products" />
     </SimpleForm>

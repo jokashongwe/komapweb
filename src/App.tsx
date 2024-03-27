@@ -18,6 +18,7 @@ import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import UserIcon from "@mui/icons-material/Groups";
 import HolidayVillageIcon from "@mui/icons-material/HolidayVillage";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
+import VillaIcon from "@mui/icons-material/Villa";
 
 import Dashboard from "./Dashboard";
 import { i18nProvider } from "./i18nProvider";
@@ -46,6 +47,7 @@ import {
   ProvinceShow,
 } from "./modules/Province";
 import { CityCreate, CityEdit, CityList, CityShow } from "./modules/City";
+import { MarketPlaceCreate, MarketPlaceEdit, MarketPlaceList, MarketPlaceShow } from "./modules/MarketPlace";
 
 export const App = () => (
   <Admin
@@ -110,6 +112,16 @@ export const App = () => (
       show={CityShow}
       edit={CityEdit}
       create={CityCreate}
+    />
+
+<Resource
+      icon={VillaIcon}
+      options={{ label: "Marchés" }}
+      name="markets"
+      list={MarketPlaceList}
+      show={MarketPlaceShow}
+      edit={MarketPlaceEdit}
+      create={MarketPlaceCreate}
     />
   </Admin>
 );

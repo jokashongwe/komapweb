@@ -32,6 +32,9 @@ import { Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import ProvinceInput from "../components/ProvinceInput";
 
+const optionRenderer = (choice: any) =>
+  `${choice.conteneur} ${choice.name} ${choice.model ? choice.model : ""}`;
+
 export const CreateBasket = () => (
   <Create>
     <SimpleForm>
@@ -43,7 +46,11 @@ export const CreateBasket = () => (
       <TextInput source="ville" label="Ville" />
       <TextInput source="commune" label="Commune" />
       <ReferenceArrayInput reference="products" source="products">
-        <SelectArrayInput optionText="name" />
+        <div
+          style={{ display: "flex", flexDirection: "row", columnGap: "0.8rem" }}
+        >
+          <SelectArrayInput optionText={optionRenderer} />
+        </div>
       </ReferenceArrayInput>
     </SimpleForm>
   </Create>
@@ -86,8 +93,9 @@ export const ShowBasket = () => (
           <ChipField source="name" />
         </SingleFieldList>
       </ReferenceArrayField>
-      <NumberField source="amount" label="Prix Total" />
-      <TextField source="province" label="Province" defaultValue={"Kinshasa"} />
+      <ReferenceField label="Province" source="province" reference="provinces">
+        <TextField source="name" style={{ textTransform: "uppercase" }} />
+      </ReferenceField>
       <TextField source="commune" label="Commune" defaultValue={"-"} />
       <TextField source="ville" label="Ville" defaultValue={"Kinshasa"} />
       <DateField source="createdAt" label="Date de création" />
@@ -102,8 +110,8 @@ export const BasketList = () => {
       {isSmall ? (
         <SimpleList
           primaryText={(record) => record.name}
-          secondaryText={(record) => record.province + " " + record.ville}
-          tertiaryText={(record) => record.amount}
+          secondaryText={(record) => record.ville}
+          tertiaryText={(record) => record.products.length + " Produits"}
         />
       ) : (
         <>
@@ -137,12 +145,13 @@ export const BasketList = () => {
                 <ChipField source="name" />
               </SingleFieldList>
             </ReferenceArrayField>
-            <NumberField source="amount" label="Prix Total" />
-            <TextField
-              source="province"
+            <ReferenceField
               label="Province"
-              defaultValue={"Kinshasa"}
-            />
+              source="province"
+              reference="provinces"
+            >
+              <TextField source="name" style={{ textTransform: "uppercase" }} />
+            </ReferenceField>
             <TextField source="commune" label="Commune" defaultValue={"-"} />
             <TextField source="ville" label="Ville" defaultValue={"Kinshasa"} />
             <DateField source="createdAt" label="Date de création" />

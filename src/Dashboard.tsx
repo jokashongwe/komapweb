@@ -62,7 +62,7 @@ export default () => {
             minHeight: "10rem",
             position: "relative",
             overflow: "hidden",
-            padding: "16px",
+            padding: "0.8rem",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -75,12 +75,12 @@ export default () => {
               left: 0,
               display: "block",
               content: `''`,
-              height: "150%",
+              height: "100%",
               aspectRatio: "1",
               transform: "translate(-30%, -60%)",
               borderRadius: "50%",
-              backgroundColor: "secondary.main",
-              opacity: 0.15,
+              backgroundColor: "success.main",
+              opacity: 0.2,
             },
           }}
         >
@@ -97,11 +97,7 @@ export default () => {
               },
             }}
           >
-            <Box width="3em" className="icon">
-              {createElement(ShoppingBasketIcon, { fontSize: "large" })}
-            </Box>
-            
-            <Box sx={{maxWidth: "5rem", marginRight: "4rem"}} textAlign="left">
+            <Box sx={{maxWidth: "4rem", marginRight: "4rem"}} textAlign="left">
               <Typography variant="h6" color="textPrimary">
                 {basket.name}
               </Typography>
@@ -136,14 +132,14 @@ export default () => {
               to="/products"
               icon={InventoryIcon}
               title={"Produits"}
-              subtitle={counts ? counts.products : 0}
+              subtitle={counts?.products}
             />
             <div style={{ width: "0.8rem" }} />
             <CardWithIcon
               to="/prices"
               icon={PriceChangeIcon}
               title={"Prix"}
-              subtitle={counts ? counts.prices : 0}
+              subtitle={counts?.prices}
             />
           </div>
         </div>
@@ -153,14 +149,14 @@ export default () => {
               to="/baskets"
               icon={StoreIcon}
               title={"Paniers"}
-              subtitle={counts ? counts.baskets : 0}
+              subtitle={counts?.baskets}
             />
             <div style={{ width: "0.8rem" }} />
             <CardWithIcon
               to="/users"
               icon={UserIcon}
               title={"Utilisateurs"}
-              subtitle={counts ? counts.users : 0}
+              subtitle={counts?.users}
             />
           </div>
         </div>
